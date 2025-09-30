@@ -18,3 +18,12 @@ model JwtBlacklist {
 
   @@index([exp])
 }
+
+model user {
+  userId Int @id @default(autoincrement())
+  title String
+  description String
+  status String
+  completedDate DateTime?
+  
+}
