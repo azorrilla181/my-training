@@ -25,13 +25,13 @@ model task {
   updatedAt     DateTime   @updatedAt
   title         String
   description   String
-  status        taskStatus @default(Incomplete)
-  completedDate DateTime?
+  status        TaskStatus @default(Incomplete)
+  completedAt DateTime?
   owner         User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId       String
 }
 
-enum taskStatus {
+enum TaskStatus {
   Incomplete
   Complete
   InProgress

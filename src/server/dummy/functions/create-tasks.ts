@@ -1,6 +1,6 @@
 import { makeDummy } from '@fhss-web-team/backend-utils';
 import z from 'zod/v4';
-import { Prisma, prisma, taskStatus } from '../../../../prisma/client';
+import { Prisma, prisma, TaskStatus } from '../../../../prisma/client';
 import { faker } from '@faker-js/faker';
 
 export const createTasks = makeDummy({
