@@ -12,7 +12,7 @@ const deleteTaskInput = z.object({
 const deleteTaskOutput = z.void();
 
 export const deleteTask = authorizedProcedure
-  .meta({ requiredPermissions: [] })
+  .meta({ requiredPermissions: ['manage-tasks'] })
   .input(deleteTaskInput)
   .output(deleteTaskOutput)
   .mutation(async (opts) => {

@@ -42,7 +42,7 @@ describe('Delete task', () => {
 
     try {
       await deleteTask({ taskId: task.id });
-      const foundTask = await prisma.task.delete({
+      const foundTask = await prisma.task.findUnique({
         where: {
           id: task.id
         },
@@ -55,19 +55,19 @@ describe('Delete task', () => {
         }});
         throw err;
     }
-    });
+  });
 
-    it('error NOT_FOUND if task does not exist', async () => {
-      let error;
+  it('error NOT_FOUND if task does not exist', async () => {
+    let error;
 
-      try {
-        await deleteTask({ 
-          taskId: faker.string.uuid() 
-        });
-      } catch (err) {
-        error = err;
-      }
-      expect(error).toBeDefined();
-      expect(error).toHaveProperty('code', 'NOT_FOUND');
-    });
+    try {
+      await deleteTask({ 
+        taskId: faker.string.uuid() 
+      });
+    } catch (err) {
+      error = err;
+    }
+    expect(error).toBeDefined();
+    expect(error).toHaveProperty('code', 'NOT_FOUND');
+  });
 });
