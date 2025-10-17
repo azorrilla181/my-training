@@ -19,7 +19,6 @@ const getTasksByUserOutput = z.object({
       updatedAt: z.date().nullable(),
       createdAt: z.date().nullable(),
       ownerId: z.string(),
-
       status: z.literal(Object.values(TaskStatus)),
     })
   ),
@@ -27,24 +26,33 @@ const getTasksByUserOutput = z.object({
 });
 
 export const getTasksByUser = authorizedProcedure
-  .meta({ requiredPermissions: ['manage-tasks']})
+  .meta({ requiredPermissions: ['manage-tasks'] })
   .input(getTasksByUserInput)
   .output(getTasksByUserOutput)
-  .mutation(async (opts) => {
-    // Your logic goes here
-    const totalCount = await prisma.task.count({
-      where: { ownerId: opts.ctx.userId },
-    });
+  .mutation(
+    async (opts: {
+      ctx: { userId: any };
+      input: { pageSize: any; pageOffset: any };
+    }) => {
+      // Your logic goes here
+      const totalCount = await prisma.task.count({
+        where: { ownerId: opts.ctx.userId },
+      });
 
-    const data = await prisma.task.findMany({
-      where: { ownerId: opts.ctx.userId },
-      take: opts.input.pageSize,
-      skip: opts.input.pageOffset,
-      orderBy: { createdAt: 'desc' },
-    });
-    
-    return { data, totalCount};
+      if (opts.input.pageOffset && opts.input.pageOffset >= totalCount) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: `Cannot paginate to item ${opts.input.pageOffset + 1}, as there are only ${totalCount} items`,
+        });
+      }
 
-    // throw new TRPCError({ code: 'NOT_IMPLEMENTED' });
+      const data = await prisma.task.findMany({
+        where: { ownerId: opts.ctx.userId },
+        take: opts.input.pageSize,
+        skip: opts.input.pageOffset,
+        orderBy: { createdAt: 'desc' },
+      });
 
-  });
+      return { data, totalCount };
+    }
+  );
