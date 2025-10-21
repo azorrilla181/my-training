@@ -15,7 +15,7 @@ export class DefaultLayout {
     menu: [
       { text: 'Home', path: '/' },
       { text: 'My Tasks', path: 'tasks'},
-      { text: 'Admin', path: '/admin', requiredPermissions: ['manage-users-full-access']}
+      { text: 'Admin', path: '/admin', requiredPermissions: ['view-secrets'] },
     ],
   };
 }

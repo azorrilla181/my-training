@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthErrorPage, ForbiddenPage, NotFoundPage, ServerErrorPage } from '@fhss-web-team/frontend-utils';
 import { HomePage } from './pages/home/home.page';
 import { DefaultLayout } from './layouts/default/default.layout';
-import { Admin } from './pages/admin/admin';
+import { AdminPage } from './pages/admin/admin.page';
 import { permissionGuard } from './utils/permission.guard';
 
 export const routes: Routes = [
@@ -10,7 +10,11 @@ export const routes: Routes = [
     path: '',
     component: DefaultLayout,
     children: [
-      { path: 'admin', component: Admin, canActivate: [permissionGuard(['manage-users-full-access'])]},
+      {
+        path: 'admin',
+        component: AdminPage,
+        canActivate: [permissionGuard(['view-secrets'])],
+      },
       { path: 'server-error', component: ServerErrorPage },
       { path: 'forbidden', component: ForbiddenPage },
       { path: 'auth-error', component: AuthErrorPage },
