@@ -1,6 +1,10 @@
 import { RouterOutlet } from '@angular/router';
 import { Component } from '@angular/core';
-import { ByuFooterComponent, ByuHeaderComponent, HeaderConfig } from '@fhss-web-team/frontend-utils';
+import {
+  ByuFooterComponent,
+  ByuHeaderComponent,
+  HeaderConfig,
+} from '@fhss-web-team/frontend-utils';
 import { Permission } from '../../../security';
 
 @Component({
@@ -14,7 +18,7 @@ export class DefaultLayout {
     title: 'FHSS Starter App',
     menu: [
       { text: 'Home', path: '/' },
-      { text: 'My Tasks', path: 'tasks'},
+      { text: 'My Tasks', path: 'tasks' },
       { text: 'Admin', path: '/admin', requiredPermissions: ['view-secrets'] },
     ],
   };

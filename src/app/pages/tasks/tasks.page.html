@@ -1,1 +1,33 @@
 <p>tasks works!</p>
+<!-- paginator  -->
+
+<mat-paginator 
+  [length]="taskResource.value()?.totalCount"
+  [pageSize]="PAGE_SIZE"
+  (page)="handlePageEvent($event)"
+  [hidePageSize]="true"
+  [showFirstLastButtons]="true"
+/>
+
+ <!-- error handling  -->
+@if (taskResource.error()) {
+  <p>Failed to retreived tasks. Please try again.</p>
+  <p>{{ taskResource.error()?.message}}</p>
+  <button (click)="taskResource.refresh()">Refresh</button>
+}
+
+<!-- loading spinner  -->
+@if (taskResource.isLoading()) {
+  <div class="shade">
+    <mat-spinner />
+  </div>
+}
+<!-- task list  -->
+<section class="task-list">
+  @for (task of taskResource.value()?.data; track task.id) {
+    <div>
+      <h2>{{ task.title }}</h2>
+      <p>{{ task.description }}</p>
+    </div>
+  }
+</section>
