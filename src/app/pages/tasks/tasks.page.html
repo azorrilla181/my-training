@@ -23,11 +23,26 @@
   </div>
 }
 <!-- task list  -->
-<section class="task-list">
+
+<section>
+  @for (task of taskResource.value()?.data; track task.id) {
+    <app-task-card
+      [initialTaskValue]="task"
+      (taskDeleted)="taskDeleted()">
+    </app-task-card>
+  }
+</section>
+
+<button (click)="openCreateDialog()" aria-label="Creat task" mat-fab>
+  <mat-icon>add</mat-icon>
+
+</button>
+
+<!-- <section class="task-list">
   @for (task of taskResource.value()?.data; track task.id) {
     <div>
       <h2>{{ task.title }}</h2>
       <p>{{ task.description }}</p>
     </div>
   }
-</section>
+</section> -->

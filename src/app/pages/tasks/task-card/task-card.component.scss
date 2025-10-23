@@ -1,0 +1,32 @@
+
+mat-card {
+  padding: 5px;
+  width: var(--card-width);
+  min-height: 225px;
+
+  mat-card-header {
+    justify-content: space-between;
+  }
+
+  mat-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+
+    > button:first-of-type {
+      margin-left: auto;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+
+    textarea {
+      min-height: 75px;
+    }
+  }
+
+  .error {
+    color: red;
+  }
+}

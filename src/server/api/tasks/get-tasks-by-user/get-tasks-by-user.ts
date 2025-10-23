@@ -16,8 +16,8 @@ const getTasksByUserOutput = z.object({
       title: z.string(),
       description: z.string(),
       completedAt: z.date().nullable(),
-      updatedAt: z.date().nullable(),
-      createdAt: z.date().nullable(),
+      updatedAt: z.date(),
+      createdAt: z.date(),
       ownerId: z.string(),
       status: z.literal(Object.values(TaskStatus)),
     })
